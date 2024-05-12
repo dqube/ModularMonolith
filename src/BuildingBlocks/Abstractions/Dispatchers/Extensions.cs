@@ -42,8 +42,8 @@ public static class Extensions
     public static IServiceCollection AddDispatchers(this IServiceCollection services)
         => services
             .AddSingleton<IDispatcher, InMemoryDispatcher>()
-            .AddSingleton<ICommandDispatcher, InMemoryCommandDispatcher>()
-            .AddSingleton<IEventDispatcher, InMemoryEventDispatcher>()
+            .AddSingleton<ICommandDispatcher, CommandDispatcher>()
+            .AddSingleton<IEventDispatcher, EventDispatcher>()
             .AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>()
-            .AddSingleton<IQueryDispatcher, InMemoryQueryDispatcher>();
+            .AddSingleton<IQueryDispatcher, QueryDispatcher>();
 }

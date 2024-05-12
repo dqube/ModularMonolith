@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CompanyName.MyProjectName.BuildingBlocks.Abstractions.Dispatchers;
 
-internal sealed class InMemoryCommandDispatcher : ICommandDispatcher
+internal sealed class CommandDispatcher : ICommandDispatcher
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public InMemoryCommandDispatcher(IServiceProvider serviceProvider)
+    public CommandDispatcher(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
     public async Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)

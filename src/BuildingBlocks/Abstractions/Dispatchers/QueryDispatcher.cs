@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CompanyName.MyProjectName.BuildingBlocks.Abstractions.Dispatchers;
 
-internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
+internal sealed class QueryDispatcher : IQueryDispatcher
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public InMemoryQueryDispatcher(IServiceProvider serviceProvider)
+    public QueryDispatcher(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
     public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken cancellationToken = default)

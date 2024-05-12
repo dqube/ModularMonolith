@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CompanyName.MyProjectName.BuildingBlocks.Abstractions.Dispatchers;
 
-internal sealed class InMemoryEventDispatcher : IEventDispatcher
+internal sealed class EventDispatcher : IEventDispatcher
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public InMemoryEventDispatcher(IServiceProvider serviceProvider)
+    public EventDispatcher(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
     public async Task PublishAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default)

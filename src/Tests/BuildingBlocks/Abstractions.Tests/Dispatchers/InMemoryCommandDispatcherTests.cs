@@ -11,12 +11,12 @@ namespace CompanyName.MyProjectName.BuildingBlocks.Abstractions.Tests.Dispatcher
     public class InMemoryCommandDispatcherTests
     {
         private readonly Mock<IServiceProvider> _serviceProviderMock;
-        private readonly InMemoryCommandDispatcher _commandDispatcher;
+        private readonly CommandDispatcher _commandDispatcher;
 
         public InMemoryCommandDispatcherTests()
         {
             _serviceProviderMock = new Mock<IServiceProvider>();
-            _commandDispatcher = new InMemoryCommandDispatcher(_serviceProviderMock.Object);
+            _commandDispatcher = new CommandDispatcher(_serviceProviderMock.Object);
         }
 
         [Fact]
