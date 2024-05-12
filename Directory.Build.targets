@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<None Include="**\*.sql" CopyToOutputDirectory="PreserveNewest" />
+		<None Remove="bin\**" />
+		<None Remove="obj\**" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(TestProject)' == 'true' or '$(OutputType)' == 'Exe'">
+		<IsPackable>False</IsPackable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<BBAbstractionsPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Abstractions\*.csproj</BBAbstractionsPath>
+		<BBAPIPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\API\*.csproj</BBAPIPath>
+		<BBAuthPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Auth\*.csproj</BBAuthPath>
+		<BBContextsPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Contexts\*.csproj</BBContextsPath>
+		<BBFrameworkPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Framework\*.csproj</BBFrameworkPath>
+		<BBHTTPPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\HTTP\*.csproj</BBHTTPPath>
+		<BBObservabilityPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Observability\*.csproj</BBObservabilityPath>
+		<BBSecurityPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Security\*.csproj</BBSecurityPath>
+		<BBTransactionsPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Transactions\*.csproj</BBTransactionsPath>
+		<BBSQLServerPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\SQLServer\*.csproj</BBSQLServerPath>
+		<BBMessagePath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Messaging\*.csproj</BBMessagePath>
+		<BBSagaPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Saga\*.csproj</BBSagaPath>
+		<BBModulesPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Modules\*.csproj</BBModulesPath>
+		<BBJobsPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Jobs\*.csproj</BBJobsPath>
+		<BBWcfPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\WCF\*.csproj</BBWcfPath>
+	</PropertyGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Gateway')) and $(MSBuildProjectName.EndsWith('API'))">
+		<ProjectReference Include="$(BBFrameworkPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Bootstrapper')) and $(MSBuildProjectName.EndsWith('API'))">
+		<ProjectReference Include="$(BBFrameworkPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Contexts'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('API'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Modules'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+		<ProjectReference Include="$(BBMessagePath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Jobs'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Auth'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('HTTP'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('SQLServer'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Security'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Messaging'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+		<ProjectReference Include="$(BBContextsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Transactions'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+		<ProjectReference Include="$(BBSQLServerPath)" />
+		<ProjectReference Include="$(BBContextsPath)" />
+		<ProjectReference Include="$(BBMessagePath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Observability'))">
+		<ProjectReference Include="$(BBContextsPath)" />
+		<ProjectReference Include="$(BBMessagePath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Framework'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+		<ProjectReference Include="$(BBAPIPath)" />
+		<ProjectReference Include="$(BBAuthPath)" />
+		<ProjectReference Include="$(BBContextsPath)" />
+		<ProjectReference Include="$(BBHTTPPath)" />
+		<ProjectReference Include="$(BBObservabilityPath)" />
+		<ProjectReference Include="$(BBSecurityPath)" />
+		<ProjectReference Include="$(BBTransactionsPath)" />
+		<ProjectReference Include="$(BBSQLServerPath)" />
+		<ProjectReference Include="$(BBMessagePath)" />
+		<ProjectReference Include="$(BBModulesPath)" />
+		<ProjectReference Include="$(BBJobsPath)" />
+	</ItemGroup>
+	<!--<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Application'))">
+    <ProjectReference Include="$(BBDomainPath)" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and ($(MSBuildProjectName.EndsWith('UnitTests')) or $(MSBuildProjectName.EndsWith('Infrastructure')))">
+    <ProjectReference Include="$(BBApplicationPath)" />
+  </ItemGroup>-->
+
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('API'))">
+		<ProjectReference Include="$(BBModulesPath)" />
+		<ProjectReference Include="..\Infrastructure\*.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Application'))">
+		<ProjectReference Include="..\Domain\*.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Domain'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('IntegrationEvents'))">
+		<ProjectReference Include="$(BBInfrastructurePath)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Infrastructure'))">
+		<ProjectReference Include="$(BBSQLServerPath)" />
+		<ProjectReference Include="$(BBJobsPath)" />
+		<ProjectReference Include="..\Application\*.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Tests'))">
+		<ProjectReference Include="..\..\Infrastructure\*.csproj" />
+		<ProjectReference Include="$(BBIntegrationTestsPath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Abstractions'))">
+		<InternalsVisibleTo Include="CompanyName.MyProjectName.BuildingBlocks.Abstractions.Tests"></InternalsVisibleTo>
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Abstractions.Tests'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
+		<Using Include="Xunit" />
+	</ItemGroup>
+	<!--<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('src$([System.IO.Path]::DirectorySeparatorChar)Tests'))">
+    <ProjectReference Include="..\..\API\**\*.csproj" />
+    <ProjectReference Include="$(BBIntegrationTestsPath)" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Application'))">
+    <ProjectReference Include="..\Domain\*.csproj" />
+    <ProjectReference Include="..\IntegrationEvents\*.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Domain'))">
+    <ProjectReference Include="$(BBDomainPath)" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('IntegrationEvents'))">
+    <ProjectReference Include="$(BBInfrastructurePath)" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Infrastructure'))">
+    <ProjectReference Include="..\Application\*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Tests'))">
+    <ProjectReference Include="..\..\Infrastructure\*.csproj" />
+    <ProjectReference Include="$(BBIntegrationTestsPath)" />
+  </ItemGroup>-->
+</Project>

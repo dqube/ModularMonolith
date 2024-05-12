@@ -1,0 +1,25 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "scheduler-route": {
+        "ClusterId": "scheduler-cluster",
+        //"AuthorizationPolicy": "authenticated",
+        "Match": {
+          "Path": "/scheduler/{**catch-all}"
+        },
+        "Transforms": [
+          { "PathPattern": "{**catch-all}" }
+        ]
+      }
+    },
+    "Clusters": {
+      "scheduler-cluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:7277"
+          }
+        }
+      }
+    }
+  }
+}

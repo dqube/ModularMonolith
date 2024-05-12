@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json.schemastore.org/add",
+  "author": "David Chaparro",
+  "classifications": [
+    "Web",
+    "Web API",
+    "API",
+    "Service",
+    "Modular",
+    "Monolith"
+  ],
+  "name": "modulith",
+  "description": "A solution add for creating a Modular Monolithic Web API using FastEndpoints and MediatR",
+  "precedence": "0",
+  "identity": "Davidc.Modulith.1.0",
+  "shortName": "modulith",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "Modulith",
+  "defaultName": "Modulith",
+  "preferDefaultName": true,
+  "preferNameDirectory": true,
+  "symbols": {
+    "add": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "solution",
+          "description": "Starter solution with one basic module"
+        },
+        {
+          "choice": "basic-module",
+          "description": "Basic module"
+        },
+        {
+          "choice": "ddd-module",
+          "description": "Ddd module"
+        }
+      ],
+      "defaultValue": "solution",
+      "description": "The type of authentication to use"
+    },
+    "IsSolution": {
+      "type": "computed",
+      "value": "(add == \"solution\")"
+    },
+    "with-module": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "FirstModule",
+      "fileRename": "NewModule",
+      "replaces": "NewModule",
+      "isEnabled": "(add == \"solution\")",
+      "isRequired": "(add == \"solution\")"
+    },
+    "with-name": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "MyModule",
+      "fileRename": "NewModule",
+      "replaces": "NewModule",
+      "isEnabled": "(add != \"solution\")",
+      "isRequired": "(add != \"solution\")"
+    },
+    "to": {
+      "displayName": "Existing project relative path",
+      "description": "Path relative to the working directory",
+      "type": "parameter",
+      "datatype": "string",
+      "fileRename": "Modulith",
+      "replaces": "Modulith"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "condition": "(IsSolution)",
+      "include": [
+        "Modulith.SharedKernel/**/*",
+        "Modulith.Web/**/*",
+        "NewModule/**/*",
+        ".gitignore",
+        "Directory.Build.props",
+        "Directory.Build.targets",
+        "Directory.Packages.props",
+        "Modulith.sln"
+      ],
+      "exclude": [
+        ".vs/**/*",
+        
+      ]
+    },
+    {
+      "source": ".",
+      "target": "./",
+      "condition": "(add == \"basic-module\")",
+      "rename": {
+        "NewModule/": "NewModule/"
+      },
+      "include": [
+        "NewModule/**/*"
+      ]
+    },
+    {
+      "source": ".",
+      "target": "./",
+      "condition": "(add == \"ddd-module\")",
+      "rename": {
+        "DddModule": "NewModule"
+      },
+      "modifiers": [
+        {
+          "rename": {
+            "DddModule": "NewModule"
+          }
+        }
+      ],
+      "include": [
+        "DddModule/**/*"
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "condition": "(!IsSolution)",
+      "path": "NewModule/Modulith.NewModule/Modulith.NewModule.csproj"
+    },
+    {
+      "condition": "(!IsSolution)",
+      "path": "NewModule/Modulith.NewModule.Contracts/Modulith.NewModule.Contracts.csproj"
+    },
+    {
+      "condition": "(!IsSolution)",
+      "path": "NewModule/Modulith.NewModule.Tests/Modulith.NewModule.Tests.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!IsSolution)",
+      "description": "Add projects to solution",
+      "manualInstructions": [
+        {
+          "text": "Add generated project(s) to solution manually."
+        }
+      ],
+      "actionId": "D396686C-DE0E-4DE6-906D-291CD29FC5DE",
+      "continueOnError": true
+    },
+    {
+      "condition": "(!IsSolution)",
+      "description": "Adding a reference to Web project",
+      "actionId": "B17581D1-C5C9-4489-8F0A-004BE667B814",
+      "continueOnError": true,
+      "manualInstructions": [
+        {
+          "text": "Manually add the reference in the web project to the new project"
+        }
+      ],
+      "applyFileRenamesToArgs": [
+        "targetFiles",
+        "reference"
+      ],
+      "args": {
+        "targetFiles": [
+          "Modulith.Web/Modulith.Web.csproj"
+        ],
+        "referenceType": "project",
+        "reference": "NewModule/Modulith.NewModule/Modulith.NewModule.csproj"
+      }
+    },
+    {
+      "condition": "(!IsSolution)",
+      "description": "Adding a reference to SharedKernel",
+      "actionId": "B17581D1-C5C9-4489-8F0A-004BE667B814",
+      "continueOnError": true,
+      "manualInstructions": [
+        {
+          "text": "Manually add the reference in the web project to the new project"
+        }
+      ],
+      "applyFileRenamesToArgs": [
+        "targetFiles",
+        "reference"
+      ],
+      "args": {
+        "targetFiles": [
+          "NewModule/Modulith.NewModule/Modulith.NewModule.csproj"
+        ],
+        "referenceType": "project",
+        "reference": "Modulith.SharedKernel/Modulith.SharedKernel.csproj"
+      }
+    }
+  ]
+}

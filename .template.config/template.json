@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Dev",
+  "classifications": [
+    "Clean Architecture",
+    "DDD",
+    "Microservices",
+    "API",
+    "Dotnet",
+    "Docker"
+  ],
+  "identity": "CompanyName.MyProjectName.Template",
+  "name": "DDD Microservice Template",
+  "description": "A solution add for creating a DDD Microservice Architecture with BuildingBlocks",
+  "shortName": "DDDMicro",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CompanyName.MyProjectName",
+  "defaultName": "DDDMicroservice",
+  "preferDefaultName": true,
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net8.0",
+          "description": "Target net8.0"
+        }
+      ],
+      "replaces": "FrameworkParameter",
+      "defaultValue": "net8.0"
+    },
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    },
+    "UseCompiledBindings": {
+      "type": "parameter",
+      "description": "Defines if CompiledBindings should be enabled by default in the project (only supported in 11.0 version and newer).",
+      "datatype": "bool",
+      "displayName": "Use compiled Bindings",
+      "defaultValue": "true"
+    },
+    "HostIdentifier": {
+      "type": "bind",
+      "binding": "HostIdentifier"
+    }
+  },
+  "postActions": [
+    {
+      "id": "restore",
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        { "text": "Run 'dotnet restore'" }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "id": "editor",
+      "condition": "(HostIdentifier != \"dotnetcli\" && HostIdentifier != \"dotnetcli-preview\")",
+      "description": "Opens MainWindow in the editor",
+      "manualInstructions": [],
+      "actionId": "84C0DA21-51C8-4541-9940-6CA19AF04EE6",
+      "args": {
+        "files": "1;2"
+      },
+      "continueOnError": true
+    }
+  ],
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "include": [
+        ".gitignore",
+        "Directory.Build.props",
+        "Directory.Build.targets",
+        "Directory.Packages.props",
+        "stylecop.json",
+        "global.json",
+        ".editorconfig",
+        "CompanyName.MyProjectName.sln"
+      ]
+    },
+    {
+      "source": ".",
+      "target": "./",
+      "include": [
+        "src/BuildingBlocks/**/*"
+      ]
+
+    },
+    {
+      "source": ".",
+      "target": "./",
+      "include": [
+        "src/Modules/**/*"
+      ]
+
+    },
+    {
+      "source": ".",
+      "target": "./",
+      "include": [
+        "src/Bootstrapper/**/*"
+      ]
+
+    },
+    {
+      "source": ".",
+      "target": "./_Solution Items",
+      "include": [
+        "Directory.Build.props",
+        "Directory.Build.targets",
+        "Directory.Packages.props",
+        "stylecop.json",
+        "global.json",
+        ".editorconfig"
+      ]
+    }
+  ]
+
+  //  {
+  //    "source": ".",
+  //    "target": "./",
+  //    "include": [
+  //      "src/BuildingBlocks/**/*"
+  //    ]
+  //  }
+  //]
+
+  //"primaryOutputs": [
+  //  {
+  //    "condition": "(!IsSolution)",
+  //    "path": "src/BuildingBlocks/Abstractions/CompanyName.MyProjectName.BuildingBlocks.Abstractions.csproj"
+  //  }
+  //],
+  //"postActions": [
+  //  {
+  //    "condition": "(!IsSolution)",
+  //    "description": "Add projects to solution",
+  //    "manualInstructions": [
+  //      {
+  //        "text": "Add generated project(s) to solution manually."
+  //      }
+  //    ],
+  //    "actionId": "D396686C-DE0E-4DE6-906D-291CD29FC5DE",
+  //    "continueOnError": true
+  //  }
+  //]
+}

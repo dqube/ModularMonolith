@@ -1,0 +1,9 @@
+{
+  "patients": {
+    "module": {
+      "name": "Patients",
+      "enabled": true
+    }
+  }
+}
+
