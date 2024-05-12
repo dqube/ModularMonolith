@@ -17,11 +17,6 @@ public static class Extensions
         services.AddSingleton<IContextProvider, ContextProvider>();
         services.AddSingleton<IContextAccessor, ContextAccessor>();
         services.AddTransient<ContextHttpHandler>();
-
-        // services.AddSingleton<IMessageContextProvider, MessageContextProvider>();
-        services.AddSingleton<IMessageContextRegistry, MessageContextRegistry>();
-        services.AddSingleton<IMessageContextAccessor, MessageContextAccessor>();
-
         return services;
     }
 
