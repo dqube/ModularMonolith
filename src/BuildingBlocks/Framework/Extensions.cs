@@ -16,6 +16,7 @@ using CompanyName.MyProjectName.BuildingBlocks.Observability.Logging;
 using CompanyName.MyProjectName.BuildingBlocks.Observability.Metrics;
 using CompanyName.MyProjectName.BuildingBlocks.Observability.Tracing;
 using CompanyName.MyProjectName.BuildingBlocks.Security;
+using CompanyName.MyProjectName.BuildingBlocks.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
@@ -139,6 +140,7 @@ public static class Extensions
             // .AddTransactionalDecorators()
             .AddHttpContextAccessor()
             .AddMicro(builder.Configuration)
+            .AddStorage(builder.Configuration)
 
             .AddValidations(builder.Configuration, assemblies)
             .AddCorsPolicy(builder.Configuration)

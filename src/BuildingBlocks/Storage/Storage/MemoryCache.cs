@@ -5,12 +5,12 @@ using Microsoft.Extensions.Options;
 
 namespace CompanyName.MyProjectName.BuildingBlocks.Storage.Storage;
 
-internal class RequestStorage : IRequestStorage
+internal class MemoryCache : ICache
 {
     private readonly IMemoryCache _cache;
     private readonly StorageOptions _cacheOptions;
 
-    public RequestStorage(IMemoryCache cache, IOptions<StorageOptions> cacheOptions)
+    public MemoryCache(IMemoryCache cache, IOptions<StorageOptions> cacheOptions)
     {
         _cache = cache ?? throw new ArgumentNullException(nameof(cache));
         _cacheOptions = cacheOptions.Value ?? throw new ArgumentNullException(nameof(cacheOptions));

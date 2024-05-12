@@ -1,7 +1,7 @@
 ﻿#nullable enable
 namespace CompanyName.MyProjectName.BuildingBlocks.Abstractions.Storage;
 
-public interface IRequestStorage
+public interface ICache
 {
     Task<T?> GetAsync<T>(string key);
 

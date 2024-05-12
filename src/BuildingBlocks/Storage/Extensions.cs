@@ -15,6 +15,6 @@ public static class Extensions
         services.Configure<StorageOptions>(section);
 
         return services
-            .AddSingleton<IRequestStorage, RequestStorage>();
+            .AddSingleton<ICache, MemoryCache>();
     }
 }
