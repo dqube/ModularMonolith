@@ -26,6 +26,7 @@
 		<BBModulesPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Modules\*.csproj</BBModulesPath>
 		<BBJobsPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\Jobs\*.csproj</BBJobsPath>
 		<BBWcfPath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\WCF\*.csproj</BBWcfPath>
+		<BBStoragePath>$(MSBuildThisFileDirectory)\src\BuildingBlocks\WCF\*.csproj</BBStoragePath>
 	</PropertyGroup>
 	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Gateway')) and $(MSBuildProjectName.EndsWith('API'))">
 		<ProjectReference Include="$(BBFrameworkPath)" />
@@ -71,6 +72,9 @@
 	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Observability'))">
 		<ProjectReference Include="$(BBContextsPath)" />
 		<ProjectReference Include="$(BBMessagePath)" />
+	</ItemGroup>
+	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Storage'))">
+		<ProjectReference Include="$(BBAbstractionsPath)" />
 	</ItemGroup>
 	<ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Framework'))">
 		<ProjectReference Include="$(BBAbstractionsPath)" />

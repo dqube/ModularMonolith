@@ -5,11 +5,9 @@ using CompanyName.MyProjectName.BuildingBlocks.API.CORS;
 using CompanyName.MyProjectName.BuildingBlocks.API.Exceptions;
 using CompanyName.MyProjectName.BuildingBlocks.API.Networking;
 using CompanyName.MyProjectName.BuildingBlocks.API.Swagger;
-using CompanyName.MyProjectName.BuildingBlocks.Auth;
+using CompanyName.MyProjectName.BuildingBlocks.API.Validations;
 using CompanyName.MyProjectName.BuildingBlocks.Contexts;
 using CompanyName.MyProjectName.BuildingBlocks.HTTP;
-using CompanyName.MyProjectName.BuildingBlocks.HTTP.LoadBalancing;
-using CompanyName.MyProjectName.BuildingBlocks.HTTP.ServiceDiscovery;
 using CompanyName.MyProjectName.BuildingBlocks.Jobs;
 using CompanyName.MyProjectName.BuildingBlocks.Messaging;
 using CompanyName.MyProjectName.BuildingBlocks.Modules;
@@ -142,7 +140,7 @@ public static class Extensions
             .AddHttpContextAccessor()
             .AddMicro(builder.Configuration)
 
-            // .AddValidations(builder.Configuration, assemblies)
+            .AddValidations(builder.Configuration, assemblies)
             .AddCorsPolicy(builder.Configuration)
             .AddSwaggerDocs(builder.Configuration)
 
@@ -150,15 +148,12 @@ public static class Extensions
             .AddMetrics(builder.Configuration)
             .AddTracing(builder.Configuration)
             .AddHeadersForwarding(builder.Configuration)
-            .AddMessaging(builder.Configuration)
-            .AddConsul(builder.Configuration)
-            .AddFabio(builder.Configuration)
+            .AddMemoryMessaging(builder.Configuration)
             .AddSecurity(builder.Configuration)
             .AddJobs(builder.Configuration, appOptions.ModulePart, assemblies)
             .AddLogger(builder.Configuration);
 
         // .AddObservability(builder.Configuration)
-        // .AddContracts();
         builder.Services
            .AddHttpClient(builder.Configuration);
         builder.Services.AddControllers()
@@ -195,13 +190,10 @@ public static class Extensions
             .UseSwaggerDocs()
             .UseAuthentication()
             .UseRouting()
-
-            // .UseMetrics()
             .UseAuthorization()
             .UseContexts()
-             .UseContextLogger();
+            .UseContextLogger();
 
-            // .UseQuartzJobs()
         var configuration = app.Configuration;
         var modulePart = configuration.BindOptions<AppOptions>("app").ModulePart;
         var assemblies = ModuleLoader.LoadAssemblies(configuration, modulePart);
@@ -216,13 +208,6 @@ public static class Extensions
             module.Expose(app);
         }
 
-        // app.ValidateContracts(assemblies);
-        // app.UseEndpoints(endpoints =>
-        // {
-        //    endpoints.MapControllers();
-        //    endpoints.MapGet("/", context => context.Response.WriteAsync(options.Name));
-        //    endpoints.MapModuleInfo();
-        // });
         assemblies.Clear();
         modules.Clear();
         return app;

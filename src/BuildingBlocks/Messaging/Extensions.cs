@@ -24,8 +24,10 @@ public static class Extensions
         return services;
     }
 
-    public static IServiceCollection AddMemoryMessaging(this IServiceCollection services)
+    public static IServiceCollection AddMemoryMessaging(this IServiceCollection services, IConfiguration configuration)
     {
+        var section = configuration.GetSection("messaging");
+        services.Configure<MessagingOptions>(section);
         services.AddTransient<IMemoryMessageBroker, MemoryMessageBroker>();
         services.AddTransient<IAsyncEventDispatcher, AsyncEventDispatcher>();
         services.AddSingleton<IEventChannel, EventChannel>();
