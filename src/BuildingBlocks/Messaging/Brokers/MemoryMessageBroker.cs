@@ -1,15 +1,15 @@
-using CompanyName.MyProjectName.BuildingBlocks.Abstractions.Abstractions;
+﻿using CompanyName.MyProjectName.BuildingBlocks.Abstractions.Abstractions;
 using CompanyName.MyProjectName.BuildingBlocks.Contexts;
 using CompanyName.MyProjectName.BuildingBlocks.Messaging.Clients;
 
 namespace CompanyName.MyProjectName.BuildingBlocks.Messaging.Brokers;
 
-internal sealed class MessageBroker : IMessageBroker
+internal class MemoryMessageBroker : IMemoryMessageBroker
 {
     private readonly IMessageBrokerClient _client;
     private readonly IContextProvider _contextProvider;
 
-    public MessageBroker(IMessageBrokerClient client, IContextProvider contextProvider)
+    public MemoryMessageBroker(IMessageBrokerClient client, IContextProvider contextProvider)
     {
         _client = client;
         _contextProvider = contextProvider;
