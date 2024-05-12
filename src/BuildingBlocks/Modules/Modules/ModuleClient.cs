@@ -13,19 +13,13 @@ public sealed class ModuleClient : IModuleClient
     private readonly ConcurrentDictionary<Type, MessageAttribute> _messages = new();
     private readonly IModuleRegistry _moduleRegistry;
     private readonly IModuleSerializer _moduleSerializer;
-    private readonly IMessageContextRegistry _messageContextRegistry;
-    private readonly IMessageContextAccessor _messageContextProvider;
 
     public ModuleClient(
         IModuleRegistry moduleRegistry,
-        IModuleSerializer moduleSerializer,
-        IMessageContextRegistry messageContextRegistry,
-        IMessageContextAccessor messageContextProvider)
+        IModuleSerializer moduleSerializer)
     {
         _moduleRegistry = moduleRegistry;
         _moduleSerializer = moduleSerializer;
-        _messageContextRegistry = messageContextRegistry;
-        _messageContextProvider = messageContextProvider;
     }
 
     public Task SendAsync(string path, object request, CancellationToken cancellationToken = default)
@@ -44,53 +38,6 @@ public sealed class ModuleClient : IModuleClient
         var result = await registration.Action(receiverRequest, cancellationToken);
 
         return result is null ? null : TranslateType<TResult>(result);
-    }
-
-    public async Task PublishAsync(object message, CancellationToken cancellationToken = default)
-    {
-        var module = message.GetModuleName();
-        var key = message.GetType().Name;
-        var registrations = _moduleRegistry
-            .GetBroadcastRegistrations(key)
-            .Where(r => r.ReceiverType != message.GetType());
-
-        var tasks = new List<Task>();
-
-        foreach (var registration in registrations)
-        {
-            if (!_messages.TryGetValue(registration.ReceiverType, out var messageAttribute))
-            {
-                messageAttribute = registration.ReceiverType.GetCustomAttribute<MessageAttribute>();
-                if (message is ICommand)
-                {
-                    messageAttribute = message.GetType().GetCustomAttribute<MessageAttribute>();
-                    module = registration.ReceiverType.GetModuleName();
-                }
-
-                if (messageAttribute is not null)
-                {
-                    _messages.TryAdd(registration.ReceiverType, messageAttribute);
-                }
-            }
-
-            if (messageAttribute is not null && !string.IsNullOrWhiteSpace(messageAttribute.Module) &&
-                (!messageAttribute.Enabled || messageAttribute.Module != module))
-            {
-                continue;
-            }
-
-            var action = registration.Action;
-            var receiverMessage = TranslateType(message, registration.ReceiverType);
-            if (message is IMessage messageData)
-            {
-                var messageContext = _messageContextProvider.MessageContext;
-                _messageContextRegistry.Set((IMessage)receiverMessage, messageContext);
-            }
-
-            tasks.Add(action(receiverMessage, cancellationToken));
-        }
-
-        await Task.WhenAll(tasks);
     }
 
     private T TranslateType<T>(object value)

@@ -50,7 +50,6 @@ public static class Extensions
         services.AddSingleton<IModuleClient, ModuleClient>();
         services.AddSingleton<IModuleSerializer, JsonModuleSerializer>();
 
-        // services.AddSingleton<IModuleSerializer, MessagePackModuleSerializer>();
         services.AddSingleton<IModuleSubscriber, ModuleSubscriber>();
 
         // services.AddSingleton<IModuleRegistry, ModuleRegistry>();
