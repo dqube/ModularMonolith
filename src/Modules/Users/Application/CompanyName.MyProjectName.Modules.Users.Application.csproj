@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Api"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Infrastructure"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Tests.Contract"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Tests.EndToEnd"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Tests.Integration"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="CompanyName.MyProjectName.Modules.Users.Tests.Unit"></InternalsVisibleTo>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2"></InternalsVisibleTo>
+  </ItemGroup>
+</Project>

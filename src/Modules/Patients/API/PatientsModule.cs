@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace Micro.Modules.Patients.Api;
+namespace CompanyName.MyProjectName.Modules.Patients.API;
 
 internal class PatientsModule : IModule
 {
