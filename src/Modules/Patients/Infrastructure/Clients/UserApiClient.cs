@@ -15,9 +15,9 @@ internal sealed class UserApiClient(IModuleClient client) : IUserApiClient
          UserId = userId
      });
 
-    public Task<UserDto> GetUserAsync(int id)
-    => _client.SendAsync<UserDto>(
-        "users/get",
+    public async Task<UserDto> GetUserAsync(int id)
+    => await _client.SendAsync<UserDto>(
+        "Users/get",
         new GetUser
                 {
                     UserId = id

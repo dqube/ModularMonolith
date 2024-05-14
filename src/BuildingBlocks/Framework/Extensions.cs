@@ -12,6 +12,7 @@ using CompanyName.MyProjectName.BuildingBlocks.Jobs;
 using CompanyName.MyProjectName.BuildingBlocks.Messaging;
 using CompanyName.MyProjectName.BuildingBlocks.Modules;
 using CompanyName.MyProjectName.BuildingBlocks.Modules.Modules;
+using CompanyName.MyProjectName.BuildingBlocks.Observability;
 using CompanyName.MyProjectName.BuildingBlocks.Observability.Logging;
 using CompanyName.MyProjectName.BuildingBlocks.Observability.Metrics;
 using CompanyName.MyProjectName.BuildingBlocks.Observability.Tracing;
@@ -93,7 +94,7 @@ public static class Extensions
 
     public static WebApplicationBuilder AddModularFramework(this WebApplicationBuilder builder)
     {
-        builder.Host.ConfigureModules();
+        // builder.Host.ConfigureModules();
         var configuration = builder.Configuration;
         var modulePart = configuration.BindOptions<AppOptions>("app").ModulePart;
         var assemblies = ModuleLoader.LoadAssemblies(builder.Configuration, modulePart);
@@ -129,13 +130,13 @@ public static class Extensions
         builder
             .AddLogging()
             .Services
+            .AddMemoryCache()
             .AddErrorHandling()
             .AddModuleInfo(modules)
             .AddModuleRequests(assemblies)
             .AddHandlers(appOptions.Project, assemblies)
             .AddDispatchers()
             .AddContexts()
-            .AddMemoryCache()
 
             // .AddTransactionalDecorators()
             .AddHttpContextAccessor()
@@ -145,8 +146,7 @@ public static class Extensions
             .AddValidations(builder.Configuration, assemblies)
             .AddCorsPolicy(builder.Configuration)
             .AddSwaggerDocs(builder.Configuration)
-
-            // .AddStorage(builder.Configuration)
+            .AddHealthCheck(builder.Configuration)
             .AddMetrics(builder.Configuration)
             .AddTracing(builder.Configuration)
             .AddHeadersForwarding(builder.Configuration)
@@ -200,6 +200,7 @@ public static class Extensions
         var modulePart = configuration.BindOptions<AppOptions>("app").ModulePart;
         var assemblies = ModuleLoader.LoadAssemblies(configuration, modulePart);
         var modules = ModuleLoader.LoadModules(assemblies, modulePart);
+
         foreach (var module in modules)
         {
             module.Use(app);

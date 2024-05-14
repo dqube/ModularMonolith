@@ -29,6 +29,7 @@ public static class Extensions
         var section = configuration.GetSection("messaging");
         services.Configure<MessagingOptions>(section);
         services.AddTransient<IMemoryMessageBroker, MemoryMessageBroker>();
+        services.AddSingleton<IMessageBrokerClient, DefaultMessageBrokerClient>();
         services.AddTransient<IAsyncEventDispatcher, AsyncEventDispatcher>();
         services.AddSingleton<IEventChannel, EventChannel>();
         services.AddHostedService<EventDispatcherJob>();

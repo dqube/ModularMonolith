@@ -13,12 +13,13 @@ internal sealed class GetUserHandler(UserDbContext dbContext) : IQueryHandler<Ge
 
     public async Task<UserDetailsDto> HandleAsync(GetUser query, CancellationToken cancellationToken = default)
     {
-        var user = await _dbContext.User
-            .AsNoTracking()
-            .SingleOrDefaultAsync(x => x.Id == query.UserId, cancellationToken);
-
+        // var user = await _dbContext.User
+        //    .AsNoTracking()
+        //    .SingleOrDefaultAsync(x => x.Id == query.UserId, cancellationToken);
 #pragma warning disable CS8603 // Possible null reference return.
-        return user?.AsDetailsDto();
+        // return user?.AsDetailsDto();
 #pragma warning restore CS8603 // Possible null reference return.
+        var result = new UserDetailsDto { UserId = 1, Amount = 200, Name = "Test User" };
+        return await Task.FromResult(result);
     }
 }

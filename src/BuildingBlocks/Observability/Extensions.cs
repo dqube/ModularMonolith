@@ -13,7 +13,7 @@ namespace CompanyName.MyProjectName.BuildingBlocks.Observability;
 #nullable enable
 public static class Extensions
 {
-    public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddHealthCheck(this IServiceCollection services, IConfiguration configuration)
     {
                 services.AddHealthChecks();
 

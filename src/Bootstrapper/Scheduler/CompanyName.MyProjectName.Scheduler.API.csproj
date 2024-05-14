@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Patients\API\CompanyName.MyProjectName.Modules.Patients.API.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\API\CompanyName.MyProjectName.Modules.Users.API.csproj" />
   </ItemGroup>
 </Project>

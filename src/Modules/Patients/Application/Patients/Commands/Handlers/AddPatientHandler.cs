@@ -14,7 +14,7 @@ internal sealed class AddPatientHandler(IPatientRepository patientRepository, IL
 
     public async Task HandleAsync(AddPatient command, CancellationToken cancellationToken = default)
     {
-        var user = _userApiClient.GetUserAsync(1);
+        var user = await _userApiClient.GetUserAsync(1);
         var patient = Patient.Create(
            command.PatientId,
            command.Name);

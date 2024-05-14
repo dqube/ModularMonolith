@@ -22,7 +22,7 @@ internal class UsersModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "transfers", "Users"
+        "patients", "Users"
     };
 
     public void Expose(IEndpointRouteBuilder endpoints)
