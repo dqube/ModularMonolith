@@ -15,12 +15,45 @@
   "shortName": "DDDMicro",
   "tags": {
     "language": "C#",
-    "type": "project"
+    "type": "solution"
   },
   "sourceName": "CompanyName.MyProjectName",
   "defaultName": "DDDMicroservice",
   "preferDefaultName": true,
   "preferNameDirectory": true,
+  "guids": [
+    "EDA6EB71-8065-4488-89E1-D5E04B0CC2F2",
+	"A88F611C-1641-4FD9-B113-0B82C16EA8FC",
+	"6EB5DDC2-2560-4507-AD19-F06FEE770539",
+	"4750A0A1-2D1F-4324-9A97-0DCF5520F54D",
+	"E5FECD1B-EE89-4CE0-8CA5-43DEC3B1EB2D",
+	"A31A04CC-5A6D-4995-B0AC-6D35301F4353",
+	"787B0BA7-B085-4E96-B2FD-646AA18F7EB7",
+	"5EC8033F-AD62-4C12-9CDF-CC9AA63FDB97",
+	"029D68DD-A23C-429D-BE49-A4AB39255202",
+	"320E49A5-7F31-476F-A93E-E1EE1A0954A4",
+	"65A694AB-7661-4FF7-BEBC-0767E43352F2",
+	"7101355E-A531-412F-BDC4-BD8DB54C798A",
+	"EC3705A9-DE68-4227-97D7-9C0FC72589ED",
+	"B998B9A6-E299-4C9D-A0E4-D75A6937D61D",
+	"7887EBDE-E939-431F-A5D4-94CDFEC6492D",
+	"28BE75D2-8221-4A72-85AC-97D78D42772D",
+	"BF601F1E-712D-40AD-900D-82EA64F72E48",
+	"30C54B93-38E3-494E-A86A-31EF421626B7",
+	"FFF678EA-E212-42CA-A1B1-15247FADD75C",
+	"2F4D7642-7F80-4C22-95C7-BFD5D9B774A2",
+	"668E1369-FCA2-41F1-950D-FE91419EE2A8",
+	"9A28255C-E718-476E-AB7B-5EDC4CE5FDA6",
+	"0F5F2A6F-9B75-4303-8A5B-72FCACB7B714",
+	"F31895F1-D3C4-434E-A6FC-04A6C5CCC4DB",
+	"178E7D6A-5938-49F0-809C-E90ECB329439",
+	"A390B3BB-302B-4439-B984-741C773C8091",
+	"E45E5F45-87FB-477B-B9DE-B0FE26025E04",
+	"BD8B26FD-D50E-4C82-95B2-BA35F8E48099",
+	"8BA20CD8-DACB-4773-9E8D-F0580345CCC7",
+	"D97EE978-CFB8-40F5-B32C-3B6B0CB53C4F",
+	"CCEAA629-C212-4536-81EA-49640674CC06"
+  ],
   "symbols": {
     "Framework": {
       "type": "parameter",
@@ -40,6 +73,12 @@
       "datatype": "bool",
       "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
+    },
+	"skipProjects": {
+      "type": "parameter",
+      "datatype": "boolean",
+      "description": "If specified, skips some of the projects restoration on create.",
+      "defaultValue": "true"
     },
     "UseCompiledBindings": {
       "type": "parameter",
@@ -95,25 +134,10 @@
       "source": ".",
       "target": "./",
       "include": [
-        "src/BuildingBlocks/**/*"
+        "src/BuildingBlocks/**/*",
+		"src/Modules/**/*",
+		"src/Bootstrapper/**/*"
       ]
-
-    },
-    {
-      "source": ".",
-      "target": "./",
-      "include": [
-        "src/Modules/**/*"
-      ]
-
-    },
-    {
-      "source": ".",
-      "target": "./",
-      "include": [
-        "src/Bootstrapper/**/*"
-      ]
-
     },
     {
       "source": ".",
@@ -128,7 +152,6 @@
       ]
     }
   ]
-
   //  {
   //    "source": ".",
   //    "target": "./",
